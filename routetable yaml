@@ -1,0 +1,14 @@
+- name: create ec2 VPC public subnet route table
+    ec2_vpc_route_table:
+      aws_access_key: "{{ aws_access_key }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      vpc_id: "{{ ec2_vpc_net_result.vpc.id }}"
+      region: "{{ region }}"
+      state: "{{ state }}"
+      tags:
+        Name: "{{ route_table_name }}"
+      subnets: [ "{{ subnet_result.subnet.id }}" ]# create routes
+      routes:
+        - dest: "{{ destinationCidrBlock }}"
+          gateway_id: "{{ igw_result.gateway_id }}"
+    register: public_route_table
