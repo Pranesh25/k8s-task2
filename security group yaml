@@ -1,0 +1,15 @@
+ec2_group:
+      aws_access_key: "{{ aws_access_key }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      vpc_id: "{{ ec2_vpc_net_result.vpc.id }}"
+      region: "{{ region }}"
+      state: "{{ state }}"
+      name: "{{ security_group_name }}"
+      description: "{{ security_group_name }}"
+      tags:
+        Name: "{{ security_group_name  }}"
+      rules:
+      - proto: all
+        cidr_ip: "{{ port22CidrBlock }}"
+        rule_desc: allow all traffic
+    register: security_group_results
